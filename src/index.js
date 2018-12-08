@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import VideoView from "./components/videoView";
+// eslint-disable-next-line no-extend-native
+Array.prototype.sortBy = function (key) { // eslint-disable-line no-use-before-define
+    this.sort((a, b) => {
+        if (a[key] > b[key]) {
+            return -1
+        }
+        if (a[key] < b[key]) {
+            return 1
+        }
+        return 0
+    });
+    return this;
+};
+ReactDOM.render(<VideoView/>, document.getElementById('root'));

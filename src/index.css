@@ -12,3 +12,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+*{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+  padding: 0;
+}
+h1{
+  font-family: "Arial Black", sans-serif;
+  margin: 0;
+  padding: 15px;
+  color: coral;
+  background-color: aliceblue;
+}
+.select-wrapper{
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  background-color: salmon;
+}
+.select-wrapper select{
+  margin-right: 15px;
+  min-width: 100px;
+  line-height: 25px;
+}
+.video-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 124px);
+  background: -webkit-linear-gradient(bottom, coral , aliceblue);
+}
+.video-wrapper h1{
+  width: 100%;
+  text-align: center;
+}
+.video-wrapper h1 span{
+  width: 100%;
+  display: block;
+  font-size: 18px;
+  color: gray;
+}
+.video-wrapper video{
+  border-radius: 15px;
+  overflow: hidden;
+  margin-top: 0;
+  box-shadow: 0 0 217px 4px rgba(0,0,0,0.75);
+  margin-bottom: auto;
+}
