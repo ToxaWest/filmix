@@ -15,7 +15,17 @@ router.get('/', function (req, res) {
                 } else {
                     url = url.replace('http://vs2.cdnlast.com', 'http://vs0.cdnlast.com');
                     http.get(url, res4 => {
-                        res.json({status: res4.statusCode, url: url, info: res4.headers['last-modified']});
+                        if (res4.statusCode === 200) {
+                            res.json({status: res4.statusCode, url: url, info: res4.headers['last-modified']});
+                        } else {
+                            url = url.replace('http://vs0.cdnlast.com', 'http://u3.cdnlast.com');
+                            http.get(url, res5 => res.json({
+                                status: res5.statusCode,
+                                url: url,
+                                info: res5.headers['last-modified']
+                            }))
+                        }
+
                     })
                 }
             })
