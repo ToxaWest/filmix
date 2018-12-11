@@ -6,7 +6,8 @@ class VideoView extends React.Component {
         this.state = {
             seasons: [],
             series: [],
-            FilmArray: []
+            FilmArray: [],
+            last: ''
         }
     }
 
@@ -15,14 +16,18 @@ class VideoView extends React.Component {
     }
 
     selectFilm(e) {
-        this.setState({seasons: [], playing: false, series: [], selectedFilm: e.target.value});
+        this.setState({seasons: [], playing: false, last: '', series: [], selectedFilm: e.target.value});
         this.filmCounter(e.target.value);
+        if (localStorage.getItem(e.target.value)) {
+            this.setState({last: localStorage.getItem(e.target.value)})
+        }
     };
 
     async filmCounter(value) {
         let check = true;
         for (let i = 1; i < 100 && check; i++) {
             const query = checkAvalible(value, i);
+            // eslint-disable-next-line
             await query.then(res => {
                 if (res.status === 200) {
                     const key = this.state.seasons;
@@ -43,7 +48,8 @@ class VideoView extends React.Component {
     async seasonCounter(value) {
         let check = true;
         for (let i = 1; i < 500 && check; i++) {
-            const query = checkAvalible(this.state.selectedFilm, value, i)
+            const query = checkAvalible(this.state.selectedFilm, value, i);
+            // eslint-disable-next-line
             await query.then(res => {
                 if (res.status === 200) {
                     const key = this.state.series;
@@ -68,6 +74,8 @@ class VideoView extends React.Component {
         this.setState({selectedSeries: e.target.value});
         checkAvalible(this.state.selectedFilm, this.state.selectedSeason, e.target.value).then(res => {
             if (res.status === 200) {
+                const info = 'Последняе просмотренное: Сезон ' + this.state.selectedSeason + ', Серия ' + this.state.selectedSeries;
+                localStorage.setItem(this.state.selectedFilm, info);
                 this.setState({playing: res.url});
             }
         });
@@ -102,6 +110,7 @@ class VideoView extends React.Component {
                         </select>
                         : null}
                 </div>
+                <span>{this.state.last}</span>
                 {this.state.playing ?
                     <div className={'video-wrapper'}>
                         <h1>{this.getFilmTitle()}
